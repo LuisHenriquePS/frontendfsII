@@ -3,39 +3,23 @@ import TelaCadastroCliente from "./telas/TelaCadastroCliente.jsx";
 import TelaMenu from "./telas/TelaMenuSistema.jsx";
 import Tela404 from "./telas/Tela404.jsx";
 import BarraBusca from "./componentes/busca/BarraBusca.jsx";//Está funcionando, não mexer. 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 //01:46:00 - Assistir da aula principal
-
-const listaClientes = [
-  {
-    cpf:"Carro",
-    nome:"32443365",
-    endereco:"Luis Henrique Palacio da Silva",
-    bairro:"Ford KA branco 4 portas",
-    cidade:"Garagem do Prédio",
-    uf:"Compra",
-    telefone:"Batida do Lado",
-    email:"100 mil KM rodados"
-  },
-
-  {
-    cpf:"Fogão",
-    nome:"32443365",
-    endereco:"Eurico Campos",
-    bairro:"Ford KA branco 4 portas",
-    cidade:"Garagem do Prédio",
-    uf:"Compra",
-    telefone:"Batida do Lado",
-    email:"100 mil KM rodados"
-  }
-]
-
-
-
-
 
 function App() {
   const [clienteSelecionado, setClienteSelecionado] = useState({});
+  let listaClientes = [];
+
+  useEffect(()=>{
+    fetch("https://129.146.68.51/aluno31-pfsii/clientes", {method: "GET" }).then((resposta) => {
+      return resposta.json();
+    }).then((dados)=>{
+      listaClientes = dados;
+    });
+  },[])
+
+
+
   return (
     <div>
       
