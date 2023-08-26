@@ -4,17 +4,17 @@ import TelaMenu from "./telas/TelaMenuSistema.jsx";
 import Tela404 from "./telas/Tela404.jsx";
 import BarraBusca from "./componentes/busca/BarraBusca.jsx";//Está funcionando, não mexer. 
 import { useEffect, useState } from "react";
-//01:46:00 - Assistir da aula principal
+
 
 function App() {
   const [clienteSelecionado, setClienteSelecionado] = useState({});
-  let listaClientes = [];
+  const [listaClientes, setListaClientes] = useState([]);
 
   useEffect(()=>{
     fetch("https://129.146.68.51/aluno31-pfsii/clientes", {method: "GET" }).then((resposta) => {
       return resposta.json();
     }).then((dados)=>{
-      listaClientes = dados;
+      setListaClientes = (dados);
     });
   },[])
 
