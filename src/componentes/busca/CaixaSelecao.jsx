@@ -27,6 +27,10 @@ export default function CaixaSelecao({
                 }).then((listaDados) =>{
                     setCarregandoDados(false);
                     setDados(listaDados);
+                    if (listaDados.length > 0){
+                        setValorSelecionado(listaDados[0]);
+                        funcaoSelecao(listaDados[0]);
+                    }
                 });
             } catch(erro){
                 setCarregandoDados(false);
@@ -42,7 +46,13 @@ export default function CaixaSelecao({
         <Container border>
             <Row>
                 <Col md={11}>
-                    <Form.Select value={valorSelecionado[campoChave]}>
+                    <Form.Select value={valorSelecionado[campoExibicao]}
+                    onChange={(evento) => {
+                        const itemSelecionado = evento.currentTarget.value;
+                        const pos = dados.map((item) => item[campoChave].toString()).indexOf(itemSelecionado);                        
+                        setValorSelecionado(dados[pos]);
+                        funcaoSelecao(dados[pos]);
+                    }}>
                         {
                             dados.map((item) => {
                                 return <option key={item[campoChave]} value={item[campoChave]}>{item[campoExibicao]}</option>

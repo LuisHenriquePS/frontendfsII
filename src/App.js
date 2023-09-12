@@ -45,7 +45,7 @@ function App() {
           <CaixaSelecao enderecoFonteDados = "https://129.146.68.51/aluno31-pfsii/clientes"
           campoChave = "id" 
           campoExibicao = "nome"
-          funcaoSelecao={setClienteSelecionado} />{/*funcionando lindamente - iremos mudar para formcadproduto eu acho - continuar no minuto 54:00 - Aula Seleção de Dados*/}
+          funcaoSelecao={setClienteSelecionado} />{/*funcionando lindamente - iremos mudar para formcadproduto eu acho*/}
 
           
         </Col>
