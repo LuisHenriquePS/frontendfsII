@@ -1,12 +1,16 @@
 import { BrowserRouter, Route, Routes  } from "react-router-dom";
 import TelaCadastroCliente from "./telas/TelaCadastroCliente.jsx";
+import TelaCastroProduto from "./telas/TelaCadastroProduto.jsx";
 import TelaMenu from "./telas/TelaMenuSistema.jsx";
 import Tela404 from "./telas/Tela404.jsx";
 import BarraBusca from "./componentes/busca/BarraBusca.jsx";//Está funcionando, não mexer. 
 import { useEffect, useState } from "react";
 import { Col, Form, Row } from "react-bootstrap";
 import CaixaSelecao from "./componentes/busca/CaixaSelecao.jsx";
-//Aula 02 01:26:00
+//assistir aula 02 1:34:00
+//aula-26-04 - onde está o completinho
+
+
 
 function App() {
   const [clienteSelecionado, setClienteSelecionado] = useState({});
@@ -45,13 +49,12 @@ function App() {
           <CaixaSelecao enderecoFonteDados = "https://129.146.68.51/aluno31-pfsii/clientes"
           campoChave = "id" 
           campoExibicao = "nome"
-          funcaoSelecao={setClienteSelecionado} />{/*funcionando lindamente - iremos mudar para formcadproduto eu acho*/}
-
-          
+          funcaoSelecao={setClienteSelecionado} />{/*funcionando lindamente - iremos mudar para formcadproduto eu acho*/}          
         </Col>
       </Row> 
         <Routes>             
-            <Route path="/cadastroMaterial" element={<TelaCadastroCliente />} />           
+            <Route path="/cadastroMaterial" element={<TelaCadastroCliente />} />  
+            <Route path="/cadastroResponsavel" element={<TelaCastroProduto />} />         
             
             <Route path="/" element={<TelaMenu />}/>
             <Route path="*" element={<Tela404/>}/>
