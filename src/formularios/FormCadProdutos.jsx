@@ -74,13 +74,13 @@ export default function FormProduto(props){
     return(
         <>
             <Container className="text-center">
-                <h3>Cadastro de Produto</h3>
+                <h3>Cadastro do Responsável</h3>
             </Container>
             <Form noValidate validated={validado} onSubmit={manipulaSubmissao}>
                 <Row> 
                     <Col>
                         <Form.Group className="mb-3" controlId="codbarprod">
-                            <Form.Label>Código de Barra do Produto:</Form.Label>
+                            <Form.Label>Código da Matrícula do Responsável:</Form.Label>
                             <Form.Control type="text" placeholder="00000000000" 
                             id='codigo'
                             name='codigo'
@@ -89,7 +89,7 @@ export default function FormProduto(props){
                             required />
                         </Form.Group>
                         <Form.Control.Feedback type="invalid">
-                            Por favor, Informe o Número do Código de Barras do Produto!
+                            Por favor, Informe o Número da Matrícula do Responsável!
                         </Form.Control.Feedback>
                     </Col> 
                 </Row>
@@ -97,16 +97,16 @@ export default function FormProduto(props){
                 <Row>
                     <Col>
                         <Form.Group className="mb-3" controlId="formNomeProd">
-                            <Form.Label>Nome do Produto:</Form.Label>
-                            <Form.Control type="text" placeholder="Informe o nome do Produto"
-                            id='precoCusto'
-                            name='precoCusto'
-                            value={produto.precoCusto}
-                            onChange={manipularMudanca} 
-                             required />
+                            <Form.Label>Nome do Responsável:</Form.Label>
+                            <Col>
+                    <CaixaSelecao enderecoFonteDados = "https://129.146.68.51/aluno31-pfsii/clientes"
+                                campoChave = "id" 
+                                campoExibicao = "nome"
+                                funcaoSelecao={setClienteSelecionado} />
+                    </Col>
                         </Form.Group>
                         <Form.Control.Feedback type="invalid">
-                            Por favor, Informe o nome do Produto!
+                            Por favor, Informe o nome Nome Completo do Responsável!
                         </Form.Control.Feedback>
                     </Col>
                 </Row>
@@ -114,7 +114,7 @@ export default function FormProduto(props){
                 <Row>
                     <Col>
                         <Form.Group className="mb-3" controlId="formDatInc">
-                            <Form.Label>Data de Inclusão:</Form.Label>
+                            <Form.Label>Data da Admissão:</Form.Label>
                             <Form.Control type="date" placeholder="12/01/2XXX"
                             id='precoVenda'
                             name='precoVenda'
@@ -124,51 +124,23 @@ export default function FormProduto(props){
                              required />
                         </Form.Group>
                         <Form.Control.Feedback type="invalid">
-                            Por favor, Informe a Data de Inclusão!
+                            Por favor, Informe a Data de Admissão!
                         </Form.Control.Feedback>
-                    </Col> 
-                    <Col>
-                        <Form.Group className="mb-3" controlId="formOrg">
-                            <Form.Label>Origem:</Form.Label>
-                            <Form.Select>
-                                <option value="Compra" selec
-                                >Compra</option>
-                                <option value="Doa" selec
-                                >Doação</option>
-                                <option value="Troc" selec
-                                >Troca</option>
-                            </Form.Select>
-                        </Form.Group>
-                    </Col>
+                    </Col>                     
                 </Row>
-
                 
                 <Row className="mb-3">
-                    <Form.Group as={Col} md="6" controlId="FormDesc">
+                    <Form.Group as={Col} md="12" controlId="FormDesc">
                         <Form.Label>Descrição:</Form.Label>
-                        <Form.Control type="text" placeholder="Informe a descrição do produto: cor, unidade, características, etc..."
+                        <Form.Control type="text" placeholder="Informe a agência, o cargo e o uso"
                         id='descricao'
                         name='descricao'
                         value={produto.descricao}
                         onChange={manipularMudanca}
                          required />
-                        <Form.Control.Feedback type="invalid">Por favor, informe a descrição do produto!</Form.Control.Feedback>
+                        <Form.Control.Feedback type="invalid">Por favor, informe a Informe a agência, o cargo e o uso!</Form.Control.Feedback>
                     </Form.Group>
-                    <Form.Group as={Col} md="3" controlId="FormEstadoCliente">
-                        <Form.Label>Quantidade:</Form.Label>
-                        <Form.Control type="text" placeholder="Quantidade" 
-                        id="precoCusto"
-                        name="precoCusto"
-                        value={produto.precoCusto}
-                        onChange={manipularMudanca}
-                        required />
-                        <Form.Control.Feedback type="invalid">Por favor, informe a quantidade!</Form.Control.Feedback>
-                    </Form.Group>
-                    <Form.Group as={Col} md="3" controlId="FormResp">
-                        <Form.Label>Responsável</Form.Label>
-                        <Form.Control type="text" placeholder="Nome do responsável" required />
-                        <Form.Control.Feedback type="invalid">Por favor, informe o Responsável!</Form.Control.Feedback>
-                    </Form.Group>
+                    
                 </Row>
 
                 <Row md={2}>
@@ -178,12 +150,7 @@ export default function FormProduto(props){
                     </Col>                    
                 </Row>
                 <Row>
-                    <Col>
-                    <CaixaSelecao enderecoFonteDados = "https://129.146.68.51/aluno31-pfsii/clientes"
-                                campoChave = "id" 
-                                campoExibicao = "nome"
-                                funcaoSelecao={setClienteSelecionado} />
-                    </Col>
+                    
                 </Row>
             </Form>
         </>

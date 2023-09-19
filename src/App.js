@@ -44,14 +44,15 @@ function App() {
           </Form.Group>  
         </Col> 
       </Row>
-      <Row>
+      {/*<Row>
         <Col>
           <CaixaSelecao enderecoFonteDados = "https://129.146.68.51/aluno31-pfsii/clientes"
           campoChave = "id" 
           campoExibicao = "nome"
-          funcaoSelecao={setClienteSelecionado} />{/*funcionando lindamente - iremos mudar para formcadproduto eu acho*/}          
+          funcaoSelecao={setClienteSelecionado} /> 
         </Col>
-      </Row> 
+      </Row>{/*funcionando lindamente - iremos mudar para formcadproduto eu acho*/}          
+         
         <Routes>             
             <Route path="/cadastroMaterial" element={<TelaCadastroCliente />} />  
             <Route path="/cadastroResponsavel" element={<TelaCastroProduto />} />         
