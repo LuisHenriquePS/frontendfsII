@@ -7,10 +7,9 @@ export default function FormProduto(props){
     const [clienteSelecionado, setClienteSelecionado] = useState({});
     const [produtoSelecionado, setProdutoSelecionado] = useState({});
     const [produto, setProduto] = useState({
-        codigo: 0,
+        codigo: "",
         descricao: "",
-        qtdEstoque: 0,
-        precoCusto: 0,
+        qtdEstoque: "",        
         precoVenda: 0,
         cliente: clienteSelecionado
 
@@ -98,12 +97,13 @@ export default function FormProduto(props){
                     <Col>
                         <Form.Group className="mb-3" controlId="formNomeProd">
                             <Form.Label>Nome do Responsável:</Form.Label>
-                            <Col>
-                    <CaixaSelecao enderecoFonteDados = "https://129.146.68.51/aluno31-pfsii/clientes"
-                                campoChave = "id" 
-                                campoExibicao = "nome"
-                                funcaoSelecao={setClienteSelecionado} />
-                    </Col>
+                            <Form.Control type="text" placeholder="Informe o nome do Responsável"
+                        id='qtdEstoque'
+                        name='qtdEstoque'
+                        value={produto.qtdEstoque}
+                        onChange={manipularMudanca}
+                         required />
+                        
                         </Form.Group>
                         <Form.Control.Feedback type="invalid">
                             Por favor, Informe o nome Nome Completo do Responsável!

@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { Button, Form, Row, Col } from "react-bootstrap";
+import CaixaSelecao from "../componentes/busca/CaixaSelecao";
 import { urlBase } from "../utilitarios/definicoes.js";
 export default function FormCliente(props){
     const [validado, setValidado] = useState(false);
+    const [clienteSelecionado, setClienteSelecionado] = useState({});
     const [cliente, setCliente] = useState({
         cpf:"",
         nome:"",
@@ -103,13 +105,13 @@ export default function FormCliente(props){
                     <Col>
                         <Form.Group className="mb-3">
                             <Form.Label>Responsável:</Form.Label>
-                            <Form.Control as="select" value={cliente.endereco} id="endereco" onChange={manipularMudanca} required>
-                            <option value="">Selecione um responsável</option>
-                            <option value="Eurico Silva Campos">Eurico Silva Campos</option>
-                            <option value="Luís Henrique Palácio da Silva">Luís Henrique Palácio da Silva</option>
-                            <option value="Miguel Ângelo">Miguel Ângelo</option>
-                            <option value="Gustavo Coutinho">Gustavo Coutinho</option>
-                            </Form.Control>
+                            <Col>
+                    <CaixaSelecao enderecoFonteDados = "https://129.146.68.51/aluno31-pfsii/clientes"
+                                campoChave = "id" 
+                                campoExibicao = "nome"
+                                funcaoSelecao={setClienteSelecionado} />
+                    </Col>
+                            
                         </Form.Group>
                         <Form.Control.Feedback type="invalid">
                             Por favor, selecione um responsável!
