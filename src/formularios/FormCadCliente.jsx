@@ -71,32 +71,58 @@ export default function FormCliente(props){
             <Form noValidate validated={validado} onSubmit={manipulaSubmissao}>
                 <Row> 
                     <Col>
-                        <Form.Group className="mb-3">
-                            <Form.Label>Material:</Form.Label>
-                            <Form.Control type="text" placeholder="Nome do material" 
+                            <Form.Group className="mb-3">
+                            <Form.Label>Sabor da Pizza:</Form.Label>
+                            <Form.Control
+                            as="select"                            
                             value={cliente.cpf}
                             id="cpf"
                             onChange={manipularMudanca}
-                            required />
+                            required>
+                            <option value="Calabresa">Calabresa</option>
+                            <option value="Margherita">Margherita</option>
+                            <option value="Quatro Queijos">Quatro Queijos</option>
+                            <option value="Pepperoni">Pepperoni</option>
+                            <option value="Mussarela">Mussarela</option>
+                            <option value="Atum">Atum</option>
+                            <option value="Frango com Catupiry">Frango com Catupiry</option>
+                            <option value="Portuguesa">Portuguesa</option>
+                            <option value="Paulista">Paulista</option>
+                            <option value="Baiana">Baiana</option>
+                            <option value="California">Califórnia</option>
+                            <option value="Vegetariana">Vegetariana</option>
+                            <option value="Mexicana">Mexicana</option>
+                            <option value="Havaiana">Havaiana</option>
+                            <option value="Chocolate com Morango">Chocolate com Morango</option>
+                            
+                            </Form.Control>
+                            <Form.Control.Feedback type="invalid">
+                            Selecione pelo menos um sabor!
+                            </Form.Control.Feedback>
                         </Form.Group>
-                        <Form.Control.Feedback type="invalid">
-                            Por favor, Informe o Material!
-                        </Form.Control.Feedback>
-                    </Col> 
+                    </Col>
+
                 </Row>
 
                 <Row>
                     <Col>
                         <Form.Group className="mb-3">
-                            <Form.Label>Código do Item:</Form.Label>
-                            <Form.Control type="text" placeholder="Informe o código do Item."
+                            <Form.Label>Escolha um item adicional da pizza:</Form.Label>
+                            <Form.Control 
+                            as="select"
                             value={cliente.nome}
                             id="nome"
                             onChange={manipularMudanca}
-                             required />
+                            required >
+                            <option value="Nenhum">Nenhum</option>
+                            <option value="Catupiry">Borda recheada - Catupiry</option>
+                            <option value="Queijo">Borda recheada - Queijo</option>
+                            <option value="Nutela">Borda recheada - Nutela</option>                            
+                            </Form.Control>
+
                         </Form.Group>
                         <Form.Control.Feedback type="invalid">
-                            Por favor, Informe o código do Item!
+                            Por favor, Informe a quantidade de Pizzas!
                         </Form.Control.Feedback>
                     </Col>
                 </Row>
@@ -104,28 +130,28 @@ export default function FormCliente(props){
                 <Row>                    
                     <Col>
                         <Form.Group className="mb-3">
-                            <Form.Label>Responsável:</Form.Label>
-                            <Col>
-                    <CaixaSelecao enderecoFonteDados = "https://129.146.68.51/aluno31-pfsii/clientes"
-                                campoChave = "id" 
-                                campoExibicao = "nome"
-                                funcaoSelecao={setClienteSelecionado} />
-                    </Col>
-                            
+                            <Form.Label>Endereço:</Form.Label>
+                            <Form.Control type="text" placeholder="Informe a sua rua, bairro e numeração do local."
+                            value={cliente.endereco}
+                            id="endereco"
+                            onChange={manipularMudanca}
+                             required />
                         </Form.Group>
                         <Form.Control.Feedback type="invalid">
-                            Por favor, selecione um responsável!
+                            Por favor, Informe o endereço!
                         </Form.Control.Feedback>
-                    </Col>
-
+                    </Col>                            
+                    
                      
                     <Col>
                         <Form.Group className="mb-3">
-                            <Form.Label>Descrição:</Form.Label>
+                            <Form.Label>Quantidade de Pizza:</Form.Label>
                             <Form.Control
                             value={cliente.bairro}
-                            id="bairro"
+                            id="bairro"                            
                             onChange={manipularMudanca}
+                            placeholder="Informe a quantidade de Pizzas. Ex: 1, 2, 3..."
+                            
                             required
                             >                             
                                 
@@ -137,8 +163,8 @@ export default function FormCliente(props){
                 
                 <Row className="mb-3">
                     <Form.Group as={Col} md="6">
-                        <Form.Label>Local:</Form.Label>
-                        <Form.Control type="text" placeholder="Local onde se encontra o intem"
+                        <Form.Label>Informações Adicionais:</Form.Label>
+                        <Form.Control type="text" placeholder="Retirar cebola, sem queijo, etc."
                         value={cliente.cidade} 
                         id="cidade"
                         onChange={manipularMudanca}                       
@@ -146,26 +172,32 @@ export default function FormCliente(props){
                         <Form.Control.Feedback type="invalid">Por favor, informe o Local!</Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group as={Col} md="3">
-                    <Form.Label>Forma de Aquisição:</Form.Label>
+                    <Form.Label>Forma de Pagamento:</Form.Label>
                     <Form.Control as="select" value={cliente.uf} id="uf" onChange={manipularMudanca} required>
-                        <option value="">Selecione a forma de aquisição</option>
-                        <option value="Compra">Compra</option>
-                        <option value="Doação">Doação</option>
-                        <option value="Cessão">Cessão</option>
+                        <option value="">Selecione a forma de Pagamento</option>
+                        <option value="Dinheiro/PIX">Dinheiro/PIX</option>
+                        <option value="Débito">Cartão - Débito</option>
+                        <option value="Crédito">Cartão - Crédito</option>
                     </Form.Control>
                     <Form.Control.Feedback type="invalid">
-                        Por favor, selecione a forma de aquisição!
+                        Por favor, selecione a forma de pagamento!
                     </Form.Control.Feedback>
                 </Form.Group>
 
                     <Form.Group as={Col} md="3">
-                        <Form.Label>Origem do Item:</Form.Label>
-                        <Form.Control type="text" placeholder="Loja, órgão público, etc."
+                        <Form.Label>Bebida:</Form.Label>
+                        <Form.Control 
+                        as="select"
                         value={cliente.telefone}
                         id="telefone"
                         onChange={manipularMudanca}
-                         required />
-                        <Form.Control.Feedback type="invalid">Por favor, informe a Origem do Item!</Form.Control.Feedback>
+                        required>
+                        <option value="Nenhuma">Nenhuma</option>
+                        <option value="Refrigerante">Refrigerante</option>
+                        <option value="Suco">Suco</option>
+                        <option value="Água">Água</option>
+                        </Form.Control>
+                        <Form.Control.Feedback type="invalid">Por favor, informe a bebida desejada</Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group as={Col} md="3">
                         <Form.Label>Observações:</Form.Label>

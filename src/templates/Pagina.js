@@ -7,7 +7,7 @@ import Menu from "./Menu.js";
 export default function Pagina(props) {
     return (
         <>
-            <Cabecalho texto="Sistema de Gerenciamento de Materiais - IBGE/Itajaí - SC" />
+            <Cabecalho texto="Pizzaria do Belucci" />
             <Menu />
             <Container>
                 {props.children} 

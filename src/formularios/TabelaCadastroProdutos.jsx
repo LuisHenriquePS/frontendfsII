@@ -10,8 +10,7 @@ export default function TabelaCadastroProdutos(props){
             <tr>
             <th>Código</th>
             <th>Descrição</th>
-            <th>Quantidade em Estoque</th>
-            <th>Preço de Custo R$</th>
+            <th>Quantidade em Estoque</th>            
             <th>Preço de Venda R$</th>
             <th>Ações</th>
             </tr>
@@ -23,8 +22,7 @@ export default function TabelaCadastroProdutos(props){
                     <tr key={i}>
                         <td>{produto.codigo}</td>
                         <td>{produto.descricao}</td>
-                        <td>{produto.qteEstoque}</td>
-                        <td>{produto.precoCusto}</td>
+                        <td>{produto.qteEstoque}</td>                        
                         <td>{produto.precoVenda}</td>
                         <td>
                             <a><IconeEditar /></a>{' '}

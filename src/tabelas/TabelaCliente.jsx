@@ -1,43 +1,84 @@
 import { useState } from "react";
-import { Button, Container, Table, Form, Row } from "react-bootstrap";
+import { Button, Container, Table, Form, Row, Modal } from "react-bootstrap";
 import { urlBase } from "../utilitarios/definicoes.js";
 
 export default function TabelaClientes({ listaClientes, exibirTabela }) {
     const [clientes, setClientes] = useState(listaClientes);
+    const [showModal, setShowModal] = useState(false);
+    const [clienteSelecionado, setClienteSelecionado] = useState(null);
 
     function excluirCliente(cpf) {
         const listaAtualizada = clientes.filter((cliente) => cliente.cpf !== cpf);
         setClientes(listaAtualizada);
     }
 
-    function filtrarClientes(e) {
-    const termoBusca = e.currentTarget.value;
-    fetch(urlBase + "/clientes", { method: "GET" })
-        .then((resposta) => {
-            if (!resposta.ok) {
-                throw new Error("Erro na requisição");
-            }
-            return resposta.json();
-        })
-        .then((listaClientes) => {
-            if (Array.isArray(listaClientes)) {
-                const resultadoBusca = listaClientes.filter((cliente) =>
-                    cliente.cpf.toLowerCase().includes(termoBusca.toLowerCase())
-                );
-                setClientes(resultadoBusca);
-            }
-        })
-        .catch((erro) => {
-            console.error(erro);
-            // Trate o erro de acordo com sua necessidade
-        });
+    function editarCliente(cpf, novasInformacoes) {
+        const index = clientes.findIndex((cliente) => cliente.cpf === cpf);
+
+        if (index !== -1) {
+            const listaAtualizada = [...clientes];
+            listaAtualizada[index] = { ...listaAtualizada[index], ...novasInformacoes };
+            setClientes(listaAtualizada);
+        } else {
+            console.log("Cliente não encontrado.");
+        }
+
+        // Fechar o modal após a edição
+        setShowModal(false);
     }
 
+    function handleEditarClienteClick(cliente) {
+        setClienteSelecionado(cliente);
+        setShowModal(true);
+    }
+
+    function handleModalClose() {
+        setShowModal(false);
+        setClienteSelecionado(null);
+    }
+
+    function handleSalvarEdicao() {
+        // Obtenha as novas informações do modal
+        const novasInformacoes = {
+            cpf: clienteSelecionado.cpf,
+            nome: document.getElementById("nomeEdit").value,
+            endereco: document.getElementById("enderecoEdit").value,
+            bairro: document.getElementById("bairroEdit").value,
+            cidade: document.getElementById("cidadeEdit").value,
+            uf: document.getElementById("ufEdit").value,
+            telefone: document.getElementById("telefoneEdit").value,
+            email: document.getElementById("emailEdit").value,
+        };
+
+        // Edite o cliente
+        editarCliente(clienteSelecionado.cpf, novasInformacoes);
+    }
+
+    function filtrarClientes(e) {
+        const termoBusca = e.currentTarget.value;
+        fetch(urlBase + "/clientes", { method: "GET" })
+            .then((resposta) => {
+                if (!resposta.ok) {
+                    throw new Error("Erro na requisição");
+                }
+                return resposta.json();
+            })
+            .then((listaClientes) => {
+                if (Array.isArray(listaClientes)) {
+                    const resultadoBusca = listaClientes.filter((cliente) =>
+                        cliente.cpf.toLowerCase().includes(termoBusca.toLowerCase())
+                    );
+                    setClientes(resultadoBusca);
+                }
+            })
+            .catch((erro) => {
+                console.error(erro);
+                // Trate o erro de acordo com sua necessidade
+            });
+    }
 
     return (
-        <Container>       
-        
-      
+        <Container>
             <Button onClick={() => exibirTabela(false)}>Cadastrar</Button>
             <Container className="m-3">
                 <Row>
@@ -52,13 +93,13 @@ export default function TabelaClientes({ listaClientes, exibirTabela }) {
             <Table striped bordered hover>
                 <thead>
                     <tr>
-                        <th>MATERIAL</th>
-                        <th>CÓDIGO</th>
-                        <th>RESPONSÁVEL</th>
-                        <th>DESCRIÇÃO</th>
-                        <th>LOCAL</th>
-                        <th>FORMA DE AQUISIÇÃO</th>
-                        <th>ORIGEM DO ITEM</th>
+                        <th>SABOR DA PIZZA</th>
+                        <th>ADICIONAL</th>
+                        <th>ENDEREÇO</th>
+                        <th>QUANTIDADE</th>
+                        <th>INFORMAÇÕES ADICIONAIS</th>
+                        <th>FORMA DE PAGAMENTO</th>
+                        <th>BEBIDA</th>
                         <th>OBSERVAÇÕES</th>
                         <th>Ações</th>
                     </tr>
@@ -75,7 +116,8 @@ export default function TabelaClientes({ listaClientes, exibirTabela }) {
                             <td>{cliente.telefone}</td>
                             <td>{cliente.email}</td>
                             <td>
-                                <Button>
+                                <Button onClick={() => handleEditarClienteClick(cliente)}>
+                                    {/* Ícone de lápis para indicar edição */}
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         width="16"
@@ -94,6 +136,7 @@ export default function TabelaClientes({ listaClientes, exibirTabela }) {
                                         }
                                     }}
                                 >
+                                    {/* Ícone de lixeira para indicar exclusão */}
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         width="16"
@@ -110,7 +153,57 @@ export default function TabelaClientes({ listaClientes, exibirTabela }) {
                     ))}
                 </tbody>
             </Table>
+
+            {/* Modal de Edição */}
+            <Modal show={showModal} onHide={handleModalClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Editar Pedido</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form>
+                        <Form.Group controlId="cpfEdit">
+                            <Form.Label>SABOR DA PIZZA</Form.Label>
+                            <Form.Control type="text" defaultValue={clienteSelecionado?.cpf} readOnly />
+                        </Form.Group>
+                        <Form.Group controlId="nomeEdit">
+                            <Form.Label>ADICIONAL</Form.Label>
+                            <Form.Control type="text" defaultValue={clienteSelecionado?.nome} />
+                        </Form.Group>
+                        <Form.Group controlId="enderecoEdit">
+                            <Form.Label>RESPONSÁVEL</Form.Label>
+                            <Form.Control type="text" defaultValue={clienteSelecionado?.endereco} />
+                        </Form.Group>
+                        <Form.Group controlId="bairroEdit">
+                            <Form.Label>DESCRIÇÃO</Form.Label>
+                            <Form.Control type="text" defaultValue={clienteSelecionado?.bairro} />
+                        </Form.Group>
+                        <Form.Group controlId="cidadeEdit">
+                            <Form.Label>LOCAL</Form.Label>
+                            <Form.Control type="text" defaultValue={clienteSelecionado?.cidade} />
+                        </Form.Group>
+                        <Form.Group controlId="ufEdit">
+                            <Form.Label>FORMA DE AQUISIÇÃO</Form.Label>
+                            <Form.Control type="text" defaultValue={clienteSelecionado?.uf} />
+                        </Form.Group>
+                        <Form.Group controlId="telefoneEdit">
+                            <Form.Label>ORIGEM DO ITEM</Form.Label>
+                            <Form.Control type="text" defaultValue={clienteSelecionado?.telefone} />
+                        </Form.Group>
+                        <Form.Group controlId="emailEdit">
+                            <Form.Label>OBSERVAÇÕES</Form.Label>
+                            <Form.Control type="text" defaultValue={clienteSelecionado?.email} />
+                        </Form.Group>
+                    </Form>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleModalClose}>
+                        Fechar
+                    </Button>
+                    <Button variant="primary" onClick={handleSalvarEdicao}>
+                        Salvar Alterações
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </Container>
     );
 }
-

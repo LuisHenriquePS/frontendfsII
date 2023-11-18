@@ -33,7 +33,7 @@ import { urlBase } from "../utilitarios/definicoes.js";
     return(
         <Pagina>
             <Container className="border">
-                <Alert variant={"secondary"} className="text-center">Cadastro de Material da Agência</Alert>
+                <Alert variant={"success"} className="text-center">Faça seu pedido da Pizza aqui</Alert>
 
                 {exibirTabela ? (
                     <TabelaClientes
